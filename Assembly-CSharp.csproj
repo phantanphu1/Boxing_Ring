@@ -37,6 +37,11 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets/Script/AudioManager.cs" />
+     <Compile Include="Assets/Script/Player/PlayerController.cs" />
+     <Compile Include="Assets/Script/Player/PlayerAnimation.cs" />
+     <Compile Include="Assets/Script/Manager/GameManager.cs" />
+     <Compile Include="Assets/Script/Interface/IDamageable.cs" />
+     <Compile Include="Assets/Script/Player/Player.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/EZ Assets/Shader/Illumin-Diffuse.shader" />
