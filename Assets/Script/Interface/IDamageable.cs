@@ -1,6 +1,6 @@
 public interface IDamageable
 {
-    void TakeDamge(float damge);
-    void UpdateScore(int score);
+    void TakeDamage(float damage);
+    void AddScore(int score);
     void Die();
 }

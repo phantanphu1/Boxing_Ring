@@ -7,13 +7,10 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField]
     private Animator _animator;
-    [SerializeField]
-    private Player _player;
 #if UNITY_EDITOR
     private void OnValidate()
     {
         _animator = GetComponent<Animator>();
-        _player = GetComponent<Player>();
     }
 #endif
 
@@ -27,31 +24,22 @@ public class PlayerAnimation : MonoBehaviour
             Debug.LogError("k co animator");
             return;
         }
-        if (_player == null)
-        {
-            Debug.LogError("k co _player");
-            return;
-        }
     }
     public void HandleHeadPunch()
     {
         _animator.SetTrigger("HeadPunch");
         //danh bang 2 tay vao dau
-        _player.TakeDamge(15);
     }
     private void HandleKidneyPunchLeft()
     {
         _animator.SetTrigger("KidneyPunchLeft");
         // danh vao dau tay trai 1 cai
-        _player.TakeDamge(10);
-
     }
 
     private void HandleKidneyPunchRight()
     {
         _animator.SetTrigger("KidneyPunchRight");
         // danh vao dau tay phai 1 cai
-        _player.TakeDamge(10);
 
     }
     public void HandleKnockedOut()
@@ -64,7 +52,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         _animator.SetTrigger("StomachPunch");
         // buoc len dam tay trai duoi cam
-        _player.TakeDamge(20);
 
     }
     public void HandleStomachHit()
@@ -80,7 +67,6 @@ public class PlayerAnimation : MonoBehaviour
     {
 
         int index = UnityEngine.Random.Range(0, 2);
-        Debug.Log($"index:{index}");
         if (index == 0)
         {
             HandleKidneyPunchLeft();

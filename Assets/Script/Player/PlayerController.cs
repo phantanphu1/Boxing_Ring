@@ -12,22 +12,16 @@ public class PlayerController : MonoBehaviour
     private bool _isDoubleTapping = false;
     [SerializeField]
     private PlayerAnimation _playerAnimation;
+    [SerializeField] Player player;
+    [SerializeField] Enemy enemy;
     private void Awake()
     {
         _animator = GetComponent<Animator>();
 
     }
-    private void Start()
-    {
-        _playerAnimation = FindObjectOfType<PlayerAnimation>();
-        if (_playerAnimation == null)
-        {
-            Debug.LogWarning("k co animation");
-            return;
-        }
-    }
     private void Update()
     {
+        if (player.IsPlayer() || enemy.IsEnemy()) return;
         if (Input.GetMouseButtonDown(0))
         {
             float timeSinceLastTap = Time.time - _lastTapTime;
@@ -37,7 +31,6 @@ public class PlayerController : MonoBehaviour
                 _sumTouch++;
                 if (_sumTouch == 2)
                 {
-                    Debug.LogWarning("Chạm 2 lần!");
                     _playerAnimation.HandleHeadPunch();
                     _sumTouch = 0;
                     _lastTapTime = 0f;
@@ -64,7 +57,6 @@ public class PlayerController : MonoBehaviour
 
         if (_sumTouch == 1 && _canProcessSingleTap && (Time.time - _lastTapTime >= _timeDelay))
         {
-            Debug.LogWarning("Chạm 1 lần!");
             _playerAnimation.RandomPunch();
             _sumTouch = 0;
             _lastTapTime = 0f;
@@ -98,5 +90,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
 
 }
