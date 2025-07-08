@@ -19,12 +19,20 @@ public class Enemy : MonoBehaviour, IDamageable
     private bool _isEnemy = false;
     private Animator _animator;
     [SerializeField] EnemyController _enemyController;
-
+    private int _level;
     private void Start()
     {
         _txtScore.text = _score.ToString();
         _currentHealth = _maxHealth;
         _animator = GetComponent<Animator>();
+        if (GameManager.Instance.currentSelectedLevel != null)
+        {
+            LevelTable data = GameManager.Instance.currentSelectedLevel;
+            _minDamage = data.MinDamageEnemy;
+            _maxDamage = data.MaxDamageEnemy;
+            _maxHealth = data.HealthEnemy;
+            _level = data.LevelNumber;
+        }
     }
     public void AddScore(int score)
     {
@@ -35,12 +43,13 @@ public class Enemy : MonoBehaviour, IDamageable
     public void Die()
     {
         int scorePlayer = player.ReturnScore();
-        GameManager.Instance.EnemyKnockedOut(scorePlayer);
+        UIGame.Instance.EnemyKnockedOut(scorePlayer, _level);
 
     }
 
     public void TakeDamage(float damage)
     {
+        Debug.LogWarning($"damage:{damage}");
         if (_isEnemy) return;
         _currentHealth -= damage;
         _currentHealth = Mathf.Max(0, _currentHealth);
@@ -76,6 +85,7 @@ public class Enemy : MonoBehaviour, IDamageable
             AddScore(score);
             if (player.ReturnHealthPlayer() <= 0)
             {
+                _enemyController.CancelEnemyAttacks();
                 _animator.SetTrigger("Victory");
             }
         }

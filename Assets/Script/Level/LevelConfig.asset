@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c53242747c74fd0ad98d7e6d36ec0e, type: 3}
+  m_Name: LevelConfig
+  m_EditorClassIdentifier: 
+  _lsLevelTable:
+  - LevelNumber: 1
+    MinDamagePlayer: 10
+    MaxDamagePlayer: 15
+    HealthPlayer: 100
+    GameMode: 1
+    MinDamageEnemy: 5
+    MaxDamageEnemy: 8
+    HealthEnemy: 20
+    active: 1
+  - LevelNumber: 2
+    MinDamagePlayer: 10
+    MaxDamagePlayer: 15
+    HealthPlayer: 100
+    GameMode: 1
+    MinDamageEnemy: 7
+    MaxDamageEnemy: 10
+    HealthEnemy: 25
+    active: 1
+  - LevelNumber: 3
+    MinDamagePlayer: 12
+    MaxDamagePlayer: 18
+    HealthPlayer: 110
+    GameMode: 1
+    MinDamageEnemy: 8
+    MaxDamageEnemy: 12
+    HealthEnemy: 30
+    active: 1
+  - LevelNumber: 4
+    MinDamagePlayer: 12
+    MaxDamagePlayer: 18
+    HealthPlayer: 110
+    GameMode: 2
+    MinDamageEnemy: 8
+    MaxDamageEnemy: 12
+    HealthEnemy: 40
+    active: 1
+  - LevelNumber: 5
+    MinDamagePlayer: 15
+    MaxDamagePlayer: 20
+    HealthPlayer: 120
+    GameMode: 2
+    MinDamageEnemy: 10
+    MaxDamageEnemy: 15
+    HealthEnemy: 50
+    active: 0
+  - LevelNumber: 6
+    MinDamagePlayer: 15
+    MaxDamagePlayer: 20
+    HealthPlayer: 120
+    GameMode: 2
+    MinDamageEnemy: 12
+    MaxDamageEnemy: 18
+    HealthEnemy: 90
+    active: 0
+  - LevelNumber: 7
+    MinDamagePlayer: 18
+    MaxDamagePlayer: 25
+    HealthPlayer: 130
+    GameMode: 3
+    MinDamageEnemy: 12
+    MaxDamageEnemy: 18
+    HealthEnemy: 75
+    active: 0
+  - LevelNumber: 8
+    MinDamagePlayer: 18
+    MaxDamagePlayer: 25
+    HealthPlayer: 130
+    GameMode: 3
+    MinDamageEnemy: 15
+    MaxDamageEnemy: 20
+    HealthEnemy: 120
+    active: 0
+  - LevelNumber: 9
+    MinDamagePlayer: 20
+    MaxDamagePlayer: 30
+    HealthPlayer: 140
+    GameMode: 3
+    MinDamageEnemy: 18
+    MaxDamageEnemy: 25
+    HealthEnemy: 140
+    active: 0
+  - LevelNumber: 10
+    MinDamagePlayer: 20
+    MaxDamagePlayer: 30
+    HealthPlayer: 150
+    GameMode: 3
+    MinDamageEnemy: 20
+    MaxDamageEnemy: 30
+    HealthEnemy: 200
+    active: 0

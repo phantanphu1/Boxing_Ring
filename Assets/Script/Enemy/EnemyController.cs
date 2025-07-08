@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private float _startDelay = 0.5f;
-    [SerializeField] private float _nextDelay = 3f;
-    [SerializeField] Enemy _enemy;
-    [SerializeField] Player _player;
+    [SerializeField] private float _nextDelay = 7f;
     void Start()
     {
         InvokeRepeating("HandleRandomSttack", _startDelay, _nextDelay);
