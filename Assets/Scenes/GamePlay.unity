@@ -205,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 112787613}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 150630549}
+        m_TargetAssemblyTypeName: UIGame, Assembly-CSharp
+        m_MethodName: LoadSceneMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &112787613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +267,7 @@ GameObject:
   - component: {fileID: 150630550}
   - component: {fileID: 150630549}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: UIGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,7 +282,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 150630548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f08b24c9a79b74a20bf99dcb6fb22f41, type: 3}
+  m_Script: {fileID: 11500000, guid: 32e052eec0ac94feb9e427a0b6a95f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UIDefeat: {fileID: 1854133743}
@@ -279,7 +291,6 @@ MonoBehaviour:
   _txtRank: {fileID: 1914878998}
   _txtMoney: {fileID: 1733091856}
   _txtTitle: {fileID: 390722273}
-  _delayAfterDeath: 2
 --- !u!4 &150630550
 Transform:
   m_ObjectHideFlags: 0
@@ -310,7 +321,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.06
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &207460614
 GameObject:
@@ -373,7 +384,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.06
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &247433419
 GameObject:
@@ -1500,7 +1511,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.06
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &789944915
 GameObject:
@@ -1727,7 +1738,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.06
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &824035772
 GameObject:
@@ -1793,27 +1804,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1602578504781251541, guid: 6e70ac2dd964f7e4798ba322509c7e7a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 1602578504781251541, guid: 6e70ac2dd964f7e4798ba322509c7e7a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 1602578504781251541, guid: 6e70ac2dd964f7e4798ba322509c7e7a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 1602578504781251541, guid: 6e70ac2dd964f7e4798ba322509c7e7a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.066
+      value: -0.249
       objectReference: {fileID: 0}
     - target: {fileID: 1602578504781251541, guid: 6e70ac2dd964f7e4798ba322509c7e7a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.641
+      value: 0.527
       objectReference: {fileID: 0}
     - target: {fileID: 1602578504781251541, guid: 6e70ac2dd964f7e4798ba322509c7e7a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.24
+      value: -0.208
       objectReference: {fileID: 0}
     - target: {fileID: 1602578504781251541, guid: 6e70ac2dd964f7e4798ba322509c7e7a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2659,7 +2670,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1295825718
 MonoBehaviour:
@@ -2691,6 +2702,10 @@ MonoBehaviour:
   _playerAnimation: {fileID: 1295825718}
   enemy: {fileID: 2116135148}
   _enemyController: {fileID: 2116135145}
+  _minDamage: 5
+  _maxDamage: 20
+  levelPlayer: 0
+  _levelTableObject: {fileID: 11400000, guid: 039afce0523ac4b7981e31b858b6b48e, type: 2}
 --- !u!1 &1308732447
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,8 +3636,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.20113695, y: 0.9465991, z: 0.17783707}
-  m_Center: {x: 0.0073658484, y: 0.026700497, z: -0.0004827859}
+  m_Size: {x: 0.20113695, y: 0.9465991, z: 0.20308477}
+  m_Center: {x: 0.00736585, y: 0.026700497, z: 0.012141105}
 --- !u!1 &1623637675
 GameObject:
   m_ObjectHideFlags: 0
@@ -4212,27 +4227,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7905174323926392977, guid: 775cd3b427d63974d8703d8fc87cc3ce, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7905174323926392977, guid: 775cd3b427d63974d8703d8fc87cc3ce, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7905174323926392977, guid: 775cd3b427d63974d8703d8fc87cc3ce, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7905174323926392977, guid: 775cd3b427d63974d8703d8fc87cc3ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.381
+      value: 0.292
       objectReference: {fileID: 0}
     - target: {fileID: 7905174323926392977, guid: 775cd3b427d63974d8703d8fc87cc3ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.88
+      value: 0.526
       objectReference: {fileID: 0}
     - target: {fileID: 7905174323926392977, guid: 775cd3b427d63974d8703d8fc87cc3ce, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.324
+      value: -0.226
       objectReference: {fileID: 0}
     - target: {fileID: 7905174323926392977, guid: 775cd3b427d63974d8703d8fc87cc3ce, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4284,8 +4299,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.38152158, y: 0.97198284, z: 0.2512057}
-  m_Center: {x: 0.00029476732, y: 5.1724565e-14, z: -0.025702748}
+  m_Size: {x: 0.23309375, y: 0.90255356, z: 0.18425046}
+  m_Center: {x: -0.0015327932, y: -0.0020848382, z: -0.012630656}
 --- !u!1 &1820491495
 GameObject:
   m_ObjectHideFlags: 0
@@ -5235,10 +5250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2116135147}
-  _startDelay: 0.5
-  _nextDelay: 0.5
-  _enemy: {fileID: 2116135148}
-  _player: {fileID: 1295825719}
+  _startDelay: 2
+  _nextDelay: 4
 --- !u!54 &2116135146
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5253,7 +5266,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &2116135147 stripped
 Animator:
