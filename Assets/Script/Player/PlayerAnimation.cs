@@ -81,4 +81,8 @@ public class PlayerAnimation : MonoBehaviour
 
         }
     }
+    public void HandleAnimationComback()
+    {
+        _animator.SetTrigger("Comback");
+    }
 }

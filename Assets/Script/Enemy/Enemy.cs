@@ -19,12 +19,12 @@ public class Enemy : MonoBehaviour, IDamageable
     private bool _isEnemy = false;
     private Animator _animator;
     [SerializeField] EnemyController _enemyController;
+    [SerializeField] private int countEnemy;
+    [SerializeField] private int teamEnemy = 0;
     private int _level;
     private void Start()
     {
-        _txtScore.text = _score.ToString();
-        _currentHealth = _maxHealth;
-        _animator = GetComponent<Animator>();
+
         if (GameManager.Instance.currentSelectedLevel != null)
         {
             LevelTable data = GameManager.Instance.currentSelectedLevel;
@@ -32,7 +32,12 @@ public class Enemy : MonoBehaviour, IDamageable
             _maxDamage = data.MaxDamageEnemy;
             _maxHealth = data.HealthEnemy;
             _level = data.LevelNumber;
+            teamEnemy = data.TeamEnemy;
         }
+        countEnemy = 1;
+        _txtScore.text = _score.ToString();
+        _currentHealth = _maxHealth;
+        _animator = GetComponent<Animator>();
     }
     public void AddScore(int score)
     {
@@ -43,23 +48,37 @@ public class Enemy : MonoBehaviour, IDamageable
     public void Die()
     {
         int scorePlayer = player.ReturnScore();
+        player.SetActiveLevel();
         UIGame.Instance.EnemyKnockedOut(scorePlayer, _level);
 
     }
 
     public void TakeDamage(float damage)
     {
-        Debug.LogWarning($"damage:{damage}");
         if (_isEnemy) return;
         _currentHealth -= damage;
         _currentHealth = Mathf.Max(0, _currentHealth);
+        UpdateHealth();
         if (_currentHealth <= 0)
         {
-            _isEnemy = true;
             _animator.SetTrigger("KnockedOut");
+            if (countEnemy < teamEnemy)
+            {
+                Invoke("ActiveEnemy", 5f);
+                return;
+            }
+            _isEnemy = true;
             _enemyController.CancelEnemyAttacks();
-            Invoke("Die", 8f);
+            playerAnimation.HandleVictory();
+            Invoke("Die", 7f);
         }
+    }
+    private void ActiveEnemy()
+    {
+        _animator.SetTrigger("Comback");
+        Debug.LogWarning($"countEnemy:{countEnemy} tearmEnemy:{teamEnemy}");
+        countEnemy++;
+        _currentHealth = _maxHealth;
         UpdateHealth();
     }
     private void UpdateHealth()
@@ -71,23 +90,18 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         return _isEnemy;
     }
-    public float ReturnHealthEnemy()
-    {
-        return _currentHealth;
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("HeadPlayer"))
         {
             float damage = UnityEngine.Random.Range(_minDamage, _maxDamage);
-            int score = UnityEngine.Random.Range(1, 4);
+            int score = UnityEngine.Random.Range(1, 2);
             player.TakeDamage(damage);
             AddScore(score);
-            if (player.ReturnHealthPlayer() <= 0)
-            {
-                _enemyController.CancelEnemyAttacks();
-                _animator.SetTrigger("Victory");
-            }
         }
+    }
+    public void HandleAnimationVictory()
+    {
+        _animator.SetTrigger("Victory");
     }
 }

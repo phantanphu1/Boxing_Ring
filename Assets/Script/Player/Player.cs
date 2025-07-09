@@ -18,11 +18,11 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float _maxDamage = 20;
     [SerializeField] private int levelPlayer;
     [SerializeField] LevelTableObject _levelTableObject;
+    private int countPlayer;
+    private int teamPlayer;
     private int _level;
     private void Start()
     {
-        _txtScore.text = _score.ToString();
-        _currentHealth = _maxHealth;
         if (GameManager.Instance.currentSelectedLevel != null)
         {
             LevelTable data = GameManager.Instance.currentSelectedLevel;
@@ -30,7 +30,11 @@ public class Player : MonoBehaviour, IDamageable
             _maxDamage = data.MaxDamagePlayer;
             _maxHealth = data.HealthPlayer;
             _level = data.LevelNumber;
+            teamPlayer = data.TeamPlayer;
         }
+        countPlayer = 1;
+        _txtScore.text = _score.ToString();
+        _currentHealth = _maxHealth;
     }
     public void Die()
     {
@@ -41,25 +45,31 @@ public class Player : MonoBehaviour, IDamageable
         if (_isDie) return;
         _currentHealth -= damage;
         _currentHealth = Mathf.Max(0, _currentHealth);
+        UpdateHealth();
+
         if (_currentHealth <= 0)
         {
             _playerAnimation.HandleKnockedOut();
+            if (countPlayer < teamPlayer)
+            {
+                Invoke("ActivePlayer", 5f);
+                return;
+            }
             _isDie = true;
             _enemyController.CancelEnemyAttacks();
-            Invoke("Die", 8f);
-
+            enemy.HandleAnimationVictory();
+            Invoke("Die", 7f);
         }
-        UpdateHealth();
-
     }
-    public float ReturnHealthPlayer()
+    private void ActivePlayer()
     {
-        return _currentHealth;
+        _playerAnimation.HandleAnimationComback();
+        countPlayer++;
+        _currentHealth = _maxHealth;
+        UpdateHealth();
     }
-
     public void AddScore(int score)
     {
-        Debug.LogWarning($"score:{score}");
         _score += score;
         _txtScore.text = _score.ToString();
     }
@@ -84,15 +94,9 @@ public class Player : MonoBehaviour, IDamageable
             int score = UnityEngine.Random.Range(1, 4);
             enemy.TakeDamage(damage);
             AddScore(score);
-            if (enemy.ReturnHealthEnemy() <= 0)
-            {
-                _playerAnimation.HandleVictory();
-                SetActiveLevel();
-
-            }
         }
     }
-    void SetActiveLevel()
+    public void SetActiveLevel()
     {
         foreach (var item in _levelTableObject._lsLevelTable)
         {

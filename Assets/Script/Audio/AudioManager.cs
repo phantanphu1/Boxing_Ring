@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -48,5 +46,14 @@ public class AudioManager : MonoBehaviour
     public void MusicVolume(float volume)
     {
         _musicSource.volume = volume;
+    }
+    public bool IsMusicMuted()
+    {
+        return _musicSource.mute;
+    }
+
+    public bool IsSFXMuted()
+    {
+        return SFXSource.mute;
     }
 }
