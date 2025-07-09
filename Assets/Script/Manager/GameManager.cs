@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,11 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
-
     [SerializeField] private GameObject UILevel;
     [SerializeField] private GameObject UIMain;
     [SerializeField] private GameObject UITime;
+    [SerializeField] private GameObject UISetting;
 
     [SerializeField] LevelTableObject _levelTableObject;
     [SerializeField] private Transform itemHolder;
@@ -33,12 +31,14 @@ public class GameManager : MonoBehaviour
         UILevel.SetActive(false);
         UIMain.SetActive(true);
         UITime.SetActive(false);
+        UISetting.SetActive(false);
     }
     public void ActiveUILevel()
     {
         UILevel.SetActive(true);
         UIMain.SetActive(false);
         UITime.SetActive(false);
+        UISetting.SetActive(false);
         ClearLevelItems();
         LoadLevel();
     }
@@ -47,6 +47,14 @@ public class GameManager : MonoBehaviour
         UILevel.SetActive(false);
         UIMain.SetActive(false);
         UITime.SetActive(true);
+        UISetting.SetActive(false);
+    }
+    public void ActiveUISetting()
+    {
+        UILevel.SetActive(false);
+        UIMain.SetActive(false);
+        UITime.SetActive(false);
+        UISetting.SetActive(true);
     }
     private void LoadLevel()
     {
