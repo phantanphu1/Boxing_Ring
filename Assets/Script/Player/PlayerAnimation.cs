@@ -28,6 +28,7 @@ public class PlayerAnimation : MonoBehaviour
     public void HandleHeadPunch()
     {
         _animator.SetTrigger("HeadPunch");
+        AudioManager.Instance.PunchMusic();
         //danh bang 2 tay vao dau
     }
     private void HandleKidneyPunchLeft()
@@ -70,10 +71,14 @@ public class PlayerAnimation : MonoBehaviour
         if (index == 0)
         {
             HandleKidneyPunchLeft();
+            AudioManager.Instance.PunchMusic();
+
         }
         else
         {
             HandleKidneyPunchRight();
+            AudioManager.Instance.PunchMusic();
+
         }
     }
 }
