@@ -1,8 +1,6 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class UIGame : MonoBehaviour
 {
     public static UIGame Instance;
@@ -32,7 +30,7 @@ public class UIGame : MonoBehaviour
         _txtTitle.text = _defeat;
         _txtScore.text = "Score: -" + score.ToString();
         _txtMoney.text = "Bonus: -" + score.ToString();
-        _txtRank.text = "Level:" + level.ToString();
+        _txtRank.text = "Level: " + level.ToString();
 
     }
     public void EnemyKnockedOut(int score, int level)
@@ -42,8 +40,7 @@ public class UIGame : MonoBehaviour
         _txtTitle.text = _victory;
         _txtScore.text = "Score: +" + score.ToString();
         _txtMoney.text = "Bonus: +" + score.ToString();
-        _txtRank.text = "Level:" + level.ToString();
-
+        _txtRank.text = "Level: " + level.ToString();
     }
     public void LoadSceneMenu()
     {

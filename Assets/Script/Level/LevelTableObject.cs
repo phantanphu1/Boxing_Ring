@@ -18,6 +18,8 @@ public class LevelTable
     public float MaxDamageEnemy;
     public float HealthEnemy;
     public bool active;
+    public int TeamEnemy;
+    public int TeamPlayer;
 }
 public enum GameMode
 {
