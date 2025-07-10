@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Animator _animator;
     private int _sumTouch = 0;
     [SerializeField] private float _timeDelay = 0.3f;
     private float _lastTapTime = 0f; // Thời điểm của lần chạm gần nhất
@@ -13,20 +12,48 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private PlayerAnimation _playerAnimation;
     [SerializeField] Player player;
-    [SerializeField] Enemy enemy;
-    private void Awake()
+    // [SerializeField] Enemy enemy;
+    private void Start()
     {
-        _animator = GetComponent<Animator>();
-
+        player = GetComponent<Player>();
+        _playerAnimation = GetComponent<PlayerAnimation>();
     }
     private void Update()
     {
-        if (player.IsPlayer() || enemy.IsEnemy()) return;
         if (Input.GetMouseButtonDown(0))
         {
-            float timeSinceLastTap = Time.time - _lastTapTime;
-
-            if (timeSinceLastTap < _timeDelay)
+            Touch mouseTouch = new Touch
+            {
+                position = Input.mousePosition,
+                phase = TouchPhase.Began,
+                fingerId = 0
+            };
+            HandleTouch(mouseTouch);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            Touch mouseTouch = new Touch
+            {
+                position = Input.mousePosition,
+                phase = TouchPhase.Ended,
+                fingerId = 0
+            };
+            HandleTouch(mouseTouch);
+        }
+        if (_sumTouch == 1 && _canProcessSingleTap && (Time.time - _lastTapTime >= _timeDelay))
+        {
+            _playerAnimation.RandomPunch();
+            _sumTouch = 0;
+            _lastTapTime = 0f;
+            _canProcessSingleTap = false;
+            _isDoubleTapping = false;
+        }
+    }
+    private void HandleTouch(Touch touch)
+    {
+        if (touch.phase == TouchPhase.Began)
+        {
+            if (Time.time - _lastTapTime < _timeDelay)
             {
                 _sumTouch++;
                 if (_sumTouch == 2)
@@ -46,50 +73,21 @@ public class PlayerController : MonoBehaviour
                 _isDoubleTapping = false;
             }
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (touch.phase == TouchPhase.Ended)
         {
             if (_isDoubleTapping)
             {
                 _isDoubleTapping = false;
                 return;
             }
-        }
-
-        if (_sumTouch == 1 && _canProcessSingleTap && (Time.time - _lastTapTime >= _timeDelay))
-        {
-            _playerAnimation.RandomPunch();
-            _sumTouch = 0;
-            _lastTapTime = 0f;
-            _canProcessSingleTap = false;
-        }
-    }
-    private void HandleTouch(Touch touch)
-    {
-        if (touch.phase == TouchPhase.Began)
-        {
-            if (Time.time - _lastTapTime < _timeDelay)
+            if (_sumTouch == 1 && _canProcessSingleTap && (Time.time - _lastTapTime >= _timeDelay))
             {
-                _sumTouch++;
-            }
-            else
-            {
-                _sumTouch = 1;
-            }
-            _lastTapTime = Time.time;
-        }
-        else if (touch.phase == TouchPhase.Ended)
-        {
-            if (_sumTouch == 1)
-            {
-                Debug.LogWarning("cham 1 lan");
-            }
-            else if (_sumTouch == 2)
-            {
-                Debug.LogWarning("cham 2 lan");
+                _playerAnimation.RandomPunch();
                 _sumTouch = 0;
+                _lastTapTime = 0f;
+                _canProcessSingleTap = false;
             }
         }
     }
-
 
 }

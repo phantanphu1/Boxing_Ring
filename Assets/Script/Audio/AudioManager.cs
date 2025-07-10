@@ -21,6 +21,9 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        // Application.targetFrameRate = 60;
+        // QualitySettings.vSyncCount = 0;
+
     }
     private void Start()
     {
