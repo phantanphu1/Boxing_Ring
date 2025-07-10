@@ -4,11 +4,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageable
 {
-    [SerializeField] private TextMeshProUGUI _txtScore;
     private int _score = 0;
     private float _currentHealth;
     private float _maxHealth = 100f;
-    [SerializeField] Image HealthBar;
     [SerializeField] private PlayerAnimation _playerAnimation;
     private bool _isDie = false;
     [SerializeField]
@@ -21,8 +19,19 @@ public class Player : MonoBehaviour, IDamageable
     private int countPlayer;
     private int teamPlayer;
     private int _level;
+    [SerializeField] private PlayerUI playerUI;
+    private PlayerSpawner playerSpawner;
+    private void Awake()
+    {
+
+    }
     private void Start()
     {
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
+        playerUI = FindObjectOfType<PlayerUI>();
+        _playerAnimation = FindObjectOfType<PlayerAnimation>();
+        enemy = FindObjectOfType<Enemy>();
+        _enemyController = FindObjectOfType<EnemyController>();
         if (GameManager.Instance.currentSelectedLevel != null)
         {
             LevelTable data = GameManager.Instance.currentSelectedLevel;
@@ -33,11 +42,13 @@ public class Player : MonoBehaviour, IDamageable
             teamPlayer = data.TeamPlayer;
         }
         countPlayer = 1;
-        _txtScore.text = _score.ToString();
+        playerUI.UpdateScore(_score);
         _currentHealth = _maxHealth;
     }
     public void Die()
     {
+        this.gameObject.SetActive(false);
+        enemy.gameObject.SetActive(false);
         UIGame.Instance.GameOver(_score, _level);
     }
     public void TakeDamage(float damage)
@@ -45,17 +56,19 @@ public class Player : MonoBehaviour, IDamageable
         if (_isDie) return;
         _currentHealth -= damage;
         _currentHealth = Mathf.Max(0, _currentHealth);
-        UpdateHealth();
+        playerUI.UpdateHealth(_currentHealth, _maxHealth);
 
         if (_currentHealth <= 0)
         {
             _playerAnimation.HandleKnockedOut();
+            _isDie = true;
+
             if (countPlayer < teamPlayer)
             {
                 Invoke("ActivePlayer", 5f);
                 return;
             }
-            _isDie = true;
+            // _isDie = true;
             _enemyController.CancelEnemyAttacks();
             enemy.HandleAnimationVictory();
             Invoke("Die", 7f);
@@ -63,20 +76,18 @@ public class Player : MonoBehaviour, IDamageable
     }
     private void ActivePlayer()
     {
-        _playerAnimation.HandleAnimationComback();
+        _isDie = false;
+        this.gameObject.SetActive(false);
+        playerSpawner.SpwanNewPlayer();
         countPlayer++;
         _currentHealth = _maxHealth;
-        UpdateHealth();
+        playerUI.UpdateHealth(_currentHealth, _maxHealth);
+
     }
     public void AddScore(int score)
     {
         _score += score;
-        _txtScore.text = _score.ToString();
-    }
-
-    private void UpdateHealth()
-    {
-        HealthBar.fillAmount = _currentHealth / _maxHealth;
+        playerUI.UpdateScore(_score);
     }
     public int ReturnScore()
     {

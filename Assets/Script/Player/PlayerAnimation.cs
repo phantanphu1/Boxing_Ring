@@ -7,16 +7,17 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField]
     private Animator _animator;
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        _animator = GetComponent<Animator>();
-    }
-#endif
+    // #if UNITY_EDITOR
+    //     private void OnValidate()
+    //     {
+    //         _animator = GetComponent<Animator>();
+    //     }
+    // #endif
 
 
     void Start()
     {
+        _animator = GetComponent<Animator>();
 
         if (_animator == null)
         {

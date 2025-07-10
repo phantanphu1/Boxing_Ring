@@ -27,10 +27,10 @@ MonoBehaviour:
   - LevelNumber: 2
     MinDamagePlayer: 10
     MaxDamagePlayer: 15
-    HealthPlayer: 100
+    HealthPlayer: 90
     GameMode: 1
-    MinDamageEnemy: 7
-    MaxDamageEnemy: 10
+    MinDamageEnemy: 20
+    MaxDamageEnemy: 30
     HealthEnemy: 50
     active: 1
     TeamEnemy: 1
@@ -43,7 +43,7 @@ MonoBehaviour:
     MinDamageEnemy: 8
     MaxDamageEnemy: 12
     HealthEnemy: 50
-    active: 1
+    active: 0
     TeamEnemy: 1
     TeamPlayer: 1
   - LevelNumber: 4
@@ -54,7 +54,7 @@ MonoBehaviour:
     MinDamageEnemy: 8
     MaxDamageEnemy: 12
     HealthEnemy: 50
-    active: 1
+    active: 0
     TeamEnemy: 2
     TeamPlayer: 1
   - LevelNumber: 5
@@ -65,7 +65,7 @@ MonoBehaviour:
     MinDamageEnemy: 10
     MaxDamageEnemy: 15
     HealthEnemy: 50
-    active: 1
+    active: 0
     TeamEnemy: 2
     TeamPlayer: 1
   - LevelNumber: 6
